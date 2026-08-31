@@ -1,0 +1,38 @@
+workflows:
+  android-apk:
+    name: KezearaJobs Android APK
+    max_build_duration: 30
+    instance_type: linux_x2
+    environment:
+      flutter: stable
+      vars:
+        # Update this to your actual deployed Vercel URL once you know
+        # it (see backend/DEPLOYMENT.md). Must include the `/api/v1`
+        # mount point — see lib/core/constants/app_constants.dart.
+        API_BASE_URL: https://kezera-backend.vercel.app/api/v1
+    cache:
+      cache_paths:
+        - $HOME/.pub-cache
+    scripts:
+      - name: Install Flutter dependencies
+        script: flutter pub get
+      - name: Analyze Flutter project
+        script: flutter analyze
+      - name: Build release APK
+        script: |
+          flutter build apk --release \
+            --dart-define=API_BASE_URL="$API_BASE_URL" \
+            --build-number=$PROJECT_BUILD_NUMBER
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+    # Optional: email the APK link when a build finishes. Uncomment and
+    # add at least one recipient — an empty `recipients` list will fail
+    # Codemagic's config validation. See
+    # https://docs.codemagic.io/yaml-publishing/email/
+    # publishing:
+    #   email:
+    #     recipients:
+    #       - you@example.com
+    #     notify:
+    #       success: true
+    #       failure: true
