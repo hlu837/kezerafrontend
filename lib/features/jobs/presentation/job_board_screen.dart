@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../../core/error/api_exception.dart';
 import '../../../core/widgets/skill_tag_input.dart';
 import '../../seeker/domain/job_category.dart';
+import '../../seeker/presentation/seeker_profile_provider.dart';
 import '../domain/job.dart';
 import 'job_detail_screen.dart';
 import 'jobs_provider.dart';
