@@ -1,0 +1,55 @@
+name: kezera_jobs_app
+description: KezearaJobs — universal Flutter app (seeker mobile + employer/agency web).
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.5.1
+
+  # Declarative, role-based routing — one router config drives both the
+  # mobile nav stack and the web/desktop URL bar (deep-linkable dashboards).
+  go_router: ^14.2.0
+
+  # Networking
+  dio: ^5.4.3+1
+
+  # Secure, encrypted local persistence for the JWT + cached user profile
+  flutter_secure_storage: ^9.2.2
+
+  # Lightweight value equality for state/model classes (no code-gen needed)
+  equatable: ^2.0.5
+
+  # Cross-platform (web + mobile) file picking for the walk-in
+  # registration screen's optional CV/photo attachments. Returns bytes on
+  # web (no filesystem access there) and a path on mobile — both are
+  # supported by AgencyRepository.registerWalkIn.
+  file_picker: ^8.1.2
+
+  # Opens a seeker's CV in the browser/external app from the Candidates
+  # page's "View CV" action — mirrors the web backoffice's plain
+  # `<a target="_blank">` link.
+  url_launcher: ^6.3.1
+  share_plus: ^10.1.4
+
+  # Location permission request + one-shot position read for the SEEK-01
+  # onboarding screen's "Enable location" banner. Works across mobile
+  # (native permission dialog) and web (browser geolocation prompt),
+  # matching this app's universal Flutter target.
+  geolocator: ^13.0.1
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
