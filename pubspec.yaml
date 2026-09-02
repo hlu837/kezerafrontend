@@ -36,7 +36,11 @@ dependencies:
   # page's "View CV" action — mirrors the web backoffice's plain
   # `<a target="_blank">` link.
   url_launcher: ^6.3.1
-  share_plus: ^10.1.4
+  # NOTE: the `SharePlus.instance.share(ShareParams(...))` API used in
+  # job_board_screen.dart / job_detail_screen.dart was only introduced in
+  # share_plus 11.0.0 (it replaced the old static `Share.share(...)`
+  # method). Must stay >=11.0.0 or those call sites won't compile.
+  share_plus: ^11.1.0
 
   # Location permission request + one-shot position read for the SEEK-01
   # onboarding screen's "Enable location" banner. Works across mobile
