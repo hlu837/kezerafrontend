@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Modify this file to customize your launch splash screen -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Matches the app's black theme (see AppColors.background in
+         app_theme.dart) so the handoff from this native splash to
+         Flutter's first frame is a seamless black-to-black continuation
+         instead of a white screen cutting straight to black — that cut
+         is what read as a "temporary black screen" glitch on launch. -->
+    <item android:drawable="@android:color/black" />
+
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/kezerajobs_splash" />
+    </item>
+</layer-list>

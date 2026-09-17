@@ -1,0 +1,65 @@
+name: kezera_jobs_app
+description: Kezera — universal Flutter app (seeker mobile + employer/agency web).
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.5.1
+
+  # Declarative, role-based routing — one router config drives both the
+  # mobile nav stack and the web/desktop URL bar (deep-linkable dashboards).
+  go_router: ^14.2.0
+
+  # Networking
+  dio: ^5.4.3+1
+
+  # Secure, encrypted local persistence for the JWT + cached user profile
+  flutter_secure_storage: ^9.2.2
+
+  # Lightweight value equality for state/model classes (no code-gen needed)
+  equatable: ^2.0.5
+
+  # Cross-platform (web + mobile) file picking for the walk-in
+  # registration screen's optional CV/photo attachments. Returns bytes on
+  # web (no filesystem access there) and a path on mobile — both are
+  # supported by AgencyRepository.registerWalkIn.
+  file_picker: ^8.1.2
+
+  # Opens a seeker's CV in the browser/external app from the Candidates
+  # page's "View CV" action — mirrors the web backoffice's plain
+  # `<a target="_blank">` link.
+  url_launcher: ^6.3.1
+  # NOTE: the `SharePlus.instance.share(ShareParams(...))` API used in
+  # job_board_screen.dart / job_detail_screen.dart was only introduced in
+  # share_plus 11.0.0 (it replaced the old static `Share.share(...)`
+  # method). Must stay >=11.0.0 or those call sites won't compile.
+  share_plus: ^11.1.0
+
+  cupertino_icons: ^1.0.8
+
+  # "Find an expert near you": reads the device's current GPS fix so a
+  # skilled seeker (electrician, plumber, etc.) can save it as their
+  # location on registration, and so a client searching nearby can
+  # center the search on where they're standing.
+  geolocator: ^13.0.1
+
+  # Gebeta Maps (MapLibre-based) vector map widget — renders the pins
+  # for nearby experts on nearby_experts_map_screen.dart. Chosen over
+  # Google Maps because it's the map provider this project has an API
+  # key for (Ethiopia/Africa-focused coverage).
+  gebeta_gl: ^0.22.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

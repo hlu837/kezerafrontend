@@ -1,0 +1,54 @@
+workflows:
+  android-apk:
+    name: Kezera Android APK
+    max_build_duration: 30
+    instance_type: linux_x2
+    environment:
+      flutter: stable
+      vars:
+        # Update this to your actual deployed Vercel URL once you know
+        # it (see backend/DEPLOYMENT.md). Must include the `/api/v1`
+        # mount point — see lib/core/constants/app_constants.dart.
+        API_BASE_URL: https://kezera-backend.vercel.app/api/v1
+      # GEBETA_MAPS_API_KEY is intentionally NOT hardcoded here (unlike
+      # API_BASE_URL above, which is just a public endpoint). It's an
+      # API key, so it belongs in an encrypted Codemagic variable group
+      # instead of sitting in plaintext in this checked-in file.
+      #
+      # One-time setup: Codemagic UI → Teams → your team → Environment
+      # variable groups → create a group named "kezera_secrets" → add a
+      # variable named GEBETA_MAPS_API_KEY with the real key, marked
+      # "Secure". Without this, the build still succeeds, but every map
+      # screen (Find an expert / Find agencies) renders its "map
+      # unavailable" fallback state in the built APK — see
+      # lib/core/constants/app_constants.dart's `gebetaMapsApiKey` doc
+      # comment.
+      groups:
+        - kezera_secrets
+    cache:
+      cache_paths:
+        - $HOME/.pub-cache
+    scripts:
+      - name: Install Flutter dependencies
+        script: flutter pub get
+      - name: Analyze Flutter project
+        script: flutter analyze
+      - name: Build release APK
+        script: |
+          flutter build apk --release \
+            --dart-define=API_BASE_URL="$API_BASE_URL" \
+            --dart-define=GEBETA_MAPS_API_KEY="$GEBETA_MAPS_API_KEY" \
+            --build-number=$PROJECT_BUILD_NUMBER
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+    # Optional: email the APK link when a build finishes. Uncomment and
+    # add at least one recipient — an empty `recipients` list will fail
+    # Codemagic's config validation. See
+    # https://docs.codemagic.io/yaml-publishing/email/
+    # publishing:
+    #   email:
+    #     recipients:
+    #       - you@example.com
+    #     notify:
+    #       success: true
+    #       failure: true

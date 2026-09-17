@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:gravity="center">
+        <shape android:shape="rectangle">
+            <size android:width="220dp" android:height="220dp" />
+            <corners android:radius="28dp" />
+            <solid android:color="#FFFFFF" />
+            <stroke android:width="3dp" android:color="#168653" />
+        </shape>
+    </item>
+    <item android:gravity="center" android:drawable="@drawable/kezerajobs_mark" />
+</layer-list>
